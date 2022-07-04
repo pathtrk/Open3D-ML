@@ -2,14 +2,14 @@ dataset:
   name: BridgeLiDAR
   cache_dir: ./logs/cache
   dataset_path: './dataset/bridge_lidar'
-  class_weights: [41697357, 1745448, 6572572]
+  class_weights: [1, 1, 1]
   ignored_label_inds:
   - 0
   num_classes: 3
   num_points: 65536
   test_files:
   - b_2.npy
-  test_result_folder: ./test
+  test_result_folder: ./logs/test
   train_files:
   - b_1.npy
   - b_3.npy
