@@ -4,6 +4,7 @@ from .semantickitti import SemanticKITTI
 from .s3dis import S3DIS
 from .parislille3d import ParisLille3D
 from .toronto3d import Toronto3D
+from .bridge_lidar import BridgeLiDAR
 from .customdataset import Custom3D
 from .semantic3d import Semantic3D
 from .inference_dummy import InferenceDummySplit
@@ -27,5 +28,5 @@ __all__ = [
     'Custom3D', 'utils', 'augment', 'samplers', 'KITTI', 'Waymo', 'NuScenes',
     'Lyft', 'ShapeNet', 'SemSegRandomSampler', 'InferenceDummySplit',
     'SemSegSpatiallyRegularSampler', 'Argoverse', 'Scannet', 'SunRGBD',
-    'MatterportObjects'
+    'MatterportObjects', 'BridgeLiDAR',
 ]
