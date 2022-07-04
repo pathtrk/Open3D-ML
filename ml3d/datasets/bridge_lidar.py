@@ -17,7 +17,7 @@ class BridgeLiDAR(BaseDataset):
                  cache_dir='./logs/cache',
                  use_cache=False,
                  ignored_label_inds=[0],
-                 val_files=['b_9', 'b_10'],
+                 val_files=['b_10'],
                  test_result_folder='./test',
                  **kwargs):
         # read file lists.
@@ -57,7 +57,7 @@ class BridgeLiDAR(BaseDataset):
                     break
 
         self.train_files = np.sort(
-            [f for f in self.train_files if f not in self.val_files])
+            [f for f in self.all_files if f not in self.val_files])
         self.val_files = np.sort(self.val_files)
         self.test_files = np.sort(self.test_files)
 
@@ -71,8 +71,9 @@ class BridgeLiDAR(BaseDataset):
         """
         label_to_names = {
             0: 'unlabeled',
-            1: 'deck',
-            2: 'pier',
+            1: 'ground',
+            2: 'deck',
+            3: 'pier',
         }
         return label_to_names
 
@@ -146,7 +147,7 @@ class BridgeLiDAR(BaseDataset):
         path = cfg.test_result_folder
         make_dir(path)
 
-        pred = results['predict_labels'] + 1
+        pred = results['predict_labels']
         store_path = join(path, self.name, name + '.npy')
         make_dir(Path(store_path).parent)
 
@@ -191,7 +192,7 @@ class BridgeLiDARSplit(BaseDatasetSplit):
 
         data = {
             'point': points,
-            'label': labels,
+            'label': labels + 1,
             'feat': None
         }
 
