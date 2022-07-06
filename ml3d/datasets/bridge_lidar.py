@@ -1,5 +1,5 @@
 from pathlib import Path
-from os.path import join, exists, dirname, abspath
+from os.path import join, exists
 import logging
 
 import numpy as np
@@ -41,7 +41,6 @@ class BridgeLiDAR(BaseDataset):
         self.all_files = [str(p) for p in Path(
             self.cfg.dataset_path).iterdir() if p.suffix == '.npy']
 
-        self.train_files = cfg.train_files
         self.val_files = []
         self.test_files = []
 
@@ -49,17 +48,18 @@ class BridgeLiDAR(BaseDataset):
             for val_file in cfg.val_files:
                 if val_file in file_path:
                     self.val_files.append(file_path)
+                    self.all_files.remove(file_path)
                     break
 
             for test_file in cfg.test_files:
                 if test_file in file_path:
                     self.test_files.append(file_path)
+                    self.all_files.remove(file_path)
                     break
 
-        self.train_files = np.sort(
-            [f for f in self.all_files if f not in self.val_files])
         self.val_files = np.sort(self.val_files)
         self.test_files = np.sort(self.test_files)
+        self.train_files = np.sort(self.all_files)
 
     @staticmethod
     def get_label_to_names():
